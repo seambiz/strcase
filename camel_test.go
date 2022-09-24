@@ -38,9 +38,11 @@ func toCamel(tb testing.TB) {
 		{"", ""},
 		{"many_many_words", "ManyManyWords"},
 		{"AnyKind of_string", "AnyKindOfString"},
+		{"AnyKind.of_string13_37", "AnyKindOfString1337"},
+		{"AnyKind.of_string13_37test", "AnyKindOfString1337Test"},
 		{"odd-fix", "OddFix"},
 		{"numbers2And55with000", "Numbers2And55With000"},
-		{"ID", "Id"},
+		{"ID", "ID"},
 	}
 	for _, i := range cases {
 		in := i[0]
@@ -67,7 +69,9 @@ func toLowerCamel(tb testing.TB) {
 		{"", ""},
 		{"AnyKind of_string", "anyKindOfString"},
 		{"AnyKind.of-string", "anyKindOfString"},
-		{"ID", "id"},
+		{"AnyKind.of_string13_37", "anyKindOfString1337"},
+		{"AnyKind.of_string13_37test", "anyKindOfString1337Test"},
+		{"ID", "iD"},
 		{"some string", "someString"},
 		{" some string", "someString"},
 	}
@@ -96,7 +100,13 @@ func TestCustomAcronymsToCamel(t *testing.T) {
 			name:         "API Custom Acronym",
 			acronymKey:   "API",
 			acronymValue: "api",
-			expected:     "Api",
+			expected:     "API",
+		},
+		{
+			name:         "HTTPWriter",
+			acronymKey:   "HTTPWriter",
+			acronymValue: "HTTPWriter",
+			expected:     "HTTPWriter",
 		},
 		{
 			name:         "ABCDACME Custom Acroynm",
@@ -132,7 +142,7 @@ func TestCustomAcronymsToLowerCamel(t *testing.T) {
 			name:         "API Custom Acronym",
 			acronymKey:   "API",
 			acronymValue: "api",
-			expected:     "api",
+			expected:     "aPI",
 		},
 		{
 			name:         "ABCDACME Custom Acroynm",
