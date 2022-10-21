@@ -39,21 +39,29 @@ func toCamelInitCase(s string, initCase bool) string {
 		s = a
 	}
 
-	// replace intialims at the beginning
-	for _, initialisms := range commonInitialisms {
-		if strings.HasSuffix(strings.ToUpper(s), initialisms) {
-			index := strings.LastIndex(strings.ToUpper(s), initialisms)
-			s = strings.Replace(s, s[index:index+len(initialisms)], initialisms, 1)
-			break
+	// initialisms
+	{
+		upper := strings.ToUpper(s)
+		// replace intialims at the beginning
+		for _, initialism := range commonInitialisms {
+			if strings.HasPrefix(upper, initialism) {
+				s = strings.Replace(s, s[0:len(initialism)], initialism, 1)
+				break
+			}
 		}
-	}
 
-	// replace initialisms at the end
-	for _, initialisms := range commonInitialisms {
-		if strings.HasPrefix(strings.ToUpper(s), initialisms) {
-			index := strings.Index(strings.ToUpper(s), initialisms)
-			s = strings.Replace(s, s[index:index+len(initialisms)], initialisms, 1)
-			break
+		// replace initialisms at the end
+		for _, initialism := range commonInitialisms {
+			if strings.HasSuffix(upper, initialism) {
+				index := strings.LastIndex(upper, initialism)
+
+				buf := strings.Builder{}
+				buf.Grow(len(s))
+				buf.WriteString(s[0:index])
+				buf.WriteString(initialism)
+				s = buf.String()
+				break
+			}
 		}
 	}
 

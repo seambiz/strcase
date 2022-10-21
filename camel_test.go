@@ -39,6 +39,7 @@ func toCamel(tb testing.TB) {
 		{"id", "ID"},
 		{"Id", "ID"},
 		{"iD", "ID"},
+		{"incidentid", "IncidentID"},
 		{"many_many_words", "ManyManyWords"},
 		{"AnyKind of_string", "AnyKindOfString"},
 		{"AnyKind.of_string13_37", "AnyKindOfString1337"},
